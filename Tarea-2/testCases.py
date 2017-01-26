@@ -13,7 +13,7 @@ class runTestCases(unittest.TestCase):
     def testCalcularPrecio(self):
         formato = '%d/%m/%Y %H:%M'
         inicio = datetime.strptime("25/01/2017 22:00", formato)
-        final  = datetime.strptime("25/01/2017 22:14", formato)
+        final  = datetime.strptime("25/01/2017 22:15", formato)
         checkDatos(inicio, final)
         assert(calcularPrecio(Tarifa(1,2), [inicio,final]) == 1)
         
@@ -31,6 +31,21 @@ class runTestCases(unittest.TestCase):
         checkDatos(inicio, final)
         assert(calcularPrecio(Tarifa(1,2), [inicio,final]) == 50)
 
+    def testCalcularPrecioEnSemanaYFin(self):
+        formato = '%d/%m/%Y %H:%M'
+        inicio = datetime.strptime("06/01/2017 22:00", formato)
+        final  = datetime.strptime("07/01/2017 23:00", formato)
+        checkDatos(inicio, final)
+        assert(calcularPrecio(Tarifa(1,2), [inicio,final]) == 48)
 
-if name == "__main__":
+    def testCalcularPrecioIntervaloInvalido(self):
+        formato = '%d/%m/%Y %H:%M'
+        inicio = datetime.strptime("06/01/2017 22:00", formato)
+        final  = datetime.strptime("06/01/2017 22:14", formato)
+        checkDatos(inicio, final)
+        assert(calcularPrecio(Tarifa(1,2), [inicio,final]) == 48)
+
+
+
+if __name__ == "__main__":
     unittest.main()
