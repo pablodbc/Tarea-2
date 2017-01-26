@@ -31,8 +31,11 @@ def calcularPrecio(tarifa,tiempoDeServicio):
 
 def checkDatos(inicio, final):
     try:
+        # Se chequea que la hora final sea mayor o igual a la inicial
         check = final >= inicio
         assert(check)
+        # Se chequea que el servicio cumpla un tiempo minimo de 15 minutos
+        # y un maximo de 7 dias
         delta = final - inicio
         checkMin = (delta.days == 0 and delta.seconds >= 900) or (delta.days > 0)
         assert(checkMin)
